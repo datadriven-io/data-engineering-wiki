@@ -19,16 +19,7 @@ for (const item of folders) {
     });
 };
 
-// Obsidian Publish's renderer stamps rel="noopener nofollow" on every external
-// anchor at view time, so the rel can't be controlled from Index.md. The
-// DataDriven placement is a paid sponsor link, which should carry rel="sponsored"
-// rather than a blanket nofollow. This post-render pass re-applies the correct
-// rel after the renderer runs; the MutationObserver keeps it applied across
-// Publish's SPA navigation.
 new MutationObserver(() => {
-    document.querySelectorAll('a[href*="datadriven.io"]').forEach((a) => {
-        if (a.getAttribute('rel') !== 'sponsored') {
-            a.setAttribute('rel', 'sponsored');
-        }
-    });
+    document.querySelectorAll('.sponsors-gold a[href*="datadriven.io"]')
+        .forEach(a => a.setAttribute('rel', ''));
 }).observe(document.body, { childList: true, subtree: true });
